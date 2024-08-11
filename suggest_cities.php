@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "root"; // XAMPP varsayılan kullanıcı adı
-$password = ""; // XAMPP varsayılan şifresi
-$dbname = "cities"; // Kullanılacak veritabanının adı
+$username = "root"; 
+$password = ""; 
+$dbname = "cities"; 
 
 try {
     // PDO kullanarak veri tabanı bağlantısı oluşturma
@@ -12,7 +12,7 @@ try {
     if (isset($_GET['q'])) {
         $q = $_GET['q'];
 
-        // Türkçe karakterleri İngilizce karakterlerle değiştiren fonksiyon
+       
         function normalizeString($str) {
             $charMap = [
                 'ç' => 'c', 'ğ' => 'g', 'ı' => 'i', 'ö' => 'o', 'ş' => 's', 'ü' => 'u',

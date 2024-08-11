@@ -101,7 +101,6 @@
             }
         };
 
-       // Şehir önerilerini getirir
 function suggestCities() {
     // Kullanıcının girdiği metni normalize eder (Türkçe karakterleri İngilizce karakterlere çevirir)
     const inputText = normalizeString(cityInput.value.trim().toLowerCase());
@@ -142,13 +141,11 @@ function suggestCities() {
     xhr.send(); // AJAX isteğini gönderir
 }
 
-// Türkçe karakterleri İngilizce karakterlerle değiştiren fonksiyon
 function normalizeString(metin) {
     const charMap = {
         'ç': 'c', 'ğ': 'g', 'ı': 'i', 'ö': 'o', 'ş': 's', 'ü': 'u',
         'Ç': 'C', 'Ğ': 'G', 'İ': 'I', 'Ö': 'O', 'Ş': 'S', 'Ü': 'U'
     };
-    // Verilen metindeki Türkçe karakterleri charMap kullanarak İngilizce karakterlere çevirir
     return metin.replace(/[çğışöüÇĞİŞÖÜ]/g, char => charMap[char]);
 }
 
