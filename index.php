@@ -19,12 +19,14 @@
         <div class="error">
             <p>Bilinmeyen şehir ismi</p>
         </div>
-        <div class="weather">
-            <div class="header">
-                <button class="headerbutton" id="starButton"><i id="StarIcon" class="fa-regular fa-star"></i></button>
+        <div class="header">
+                <button class="headerbutton" id="starButton"><i id="StarIcon" class="fa-regular fa-star">   Favoriler</i></button>
+                <ul id ="FavCityList"></ul>
             </div>
+        <div class="weather">
+            
             <img src="images/rain.png" class="weather-icon">
-            <h1 class="temp">40°C</h1>
+            <h1 class="temp" id="isi">40°C</h1>
             <h2 class="city" id="sehir">Adana</h2>
             <p>
                 <button class="btn btn-primary text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -71,6 +73,7 @@
         const weatherIcon = document.querySelector(".weather-icon");
         const cityInput = document.getElementById('cityInput');
         const suggestionsList = document.getElementById('suggestions');
+        const isimler = document.getElementById('FavCityList');
         var StarButton = document.getElementById('starButton');
         var starButtonIcon = document.getElementById('StarIcon')
         var HomeButton = document.querySelector(".HomeButton button");
@@ -81,25 +84,40 @@
         });
 
         StarButton.addEventListener('click', function() {
-            const currentCity = document.getElementById('sehir').textContent;
-            var YerelData = localStorage.getItem('favCity');
-            if (YerelData == currentCity) {
-                localStorage.clear();
-                starButtonIcon.style.fontWeight = "400";
-                alert("favori şehir olan " + currentCity + " kaldırıldı");
-            } else {
-                localStorage.setItem('favCity', currentCity);
-                starButtonIcon.style.fontWeight = "600";
-                alert("favori şehir " + currentCity + " olarak ayarlandı");
-            }
-        });
+            const FavOlacakSehir = document.querySelector('.search input').value;
+            const sallamaID = document.getElementById('isi').textContent;
+            const xhr =new XMLHttpRequest();
+            xhr.open('GET',`fav_sehir.php?q=${FavOlacakSehir}`,true);
+            // get isteğimizi açtık ve fav eklenecek şehri sorgu parametresi olarak atayacağız
+            alert("bu şehri favori olarak eklediniz");
+            xhr.send();
+            });
 
-        window.onload = function() {
-            const favCity = localStorage.getItem('favCity');
-            if (favCity) {
-                checkWeather(favCity);
-            }
+    window.onload = function() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fav_sehir.php', true); // fav_sehir.php'ye GET isteği gönderiyoruz
+        xhr.onload = function() {
+                if (this.status === 200) {
+                    const favoriler = JSON.parse(this.responseText); // Sunucudan gelen yanıtı JSON formatında çözüyoruz
+                    if (favoriler.length > 0) {
+                        favoriler.forEach(isim =>{
+                            const li = document.createElement('li');
+                            li.textContent = isim.city_name;
+                        
+                            li.addEventListener('click', () => {
+                            checkWeather(isim.city_name); // Tıklanan şehir için hava durumu bilgisini getiriyoruz
+                            starButtonIcon.style.fontWeight = "600";
+                            });
+
+                            isimler.appendChild(li); // Liste elemanını öneri listesine ekler
+                        })
+                    }
+                    
+                }
         };
+    xhr.send();
+};
+
 
 function suggestCities() {
     // Kullanıcının girdiği metni normalize eder (Türkçe karakterleri İngilizce karakterlere çevirir)

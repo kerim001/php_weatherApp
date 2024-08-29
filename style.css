@@ -108,6 +108,7 @@ ul {
     border-radius: 15px;
     padding: 10px;
     cursor: pointer;
+    margin-bottom: 1px;
   }
   
   li:hover {
@@ -121,18 +122,15 @@ ul {
     background-color: transparent;
     border-color: transparent;
     color: #ebfffc;
-    width: 80px; /* Buton genişliği */
     height: 80px; /* Buton yüksekliği */
-    font-size: 30px; /* İkon boyutu */
+    font-size: 25px; /* İkon boyutu */
     display: flex;
     align-items: center;
-    justify-content: center;
     font-weight: 600;
 }
 #StarIcon {
     font-weight: 400;
 }
-
 
 
   
