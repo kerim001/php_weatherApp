@@ -78,14 +78,13 @@
         var starButtonIcon = document.getElementById('StarIcon')
         var HomeButton = document.querySelector(".HomeButton button");
 
-        HomeButton.addEventListener('click', function() {
-            var favCity = localStorage.getItem('favCity');
-            checkWeather(favCity);
-        });
+        // HomeButton.addEventListener('click', function() {
+        //     var favCity = localStorage.getItem('favCity');
+        //     checkWeather(favCity);
+        // });
 
         StarButton.addEventListener('click', function() {
             const FavOlacakSehir = document.querySelector('.search input').value;
-            const sallamaID = document.getElementById('isi').textContent;
             const xhr =new XMLHttpRequest();
             xhr.open('GET',`fav_sehir.php?q=${FavOlacakSehir}`,true);
             // get isteğimizi açtık ve fav eklenecek şehri sorgu parametresi olarak atayacağız
